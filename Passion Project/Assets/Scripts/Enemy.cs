@@ -107,9 +107,9 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         healthBar.value = currentHealth;
 
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
-            currentHealth = 0;
+            Destroy(gameObject);
         }
     }
 
