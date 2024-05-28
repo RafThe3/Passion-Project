@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     [Min(0), SerializeField] private int startingHealthPacks = 1;
     [Min(0), SerializeField] private int maxHealthPacks = 1;
     [Min(0), SerializeField] private float healInterval = 1;
+
+    [Header("UI")]
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthText;
 
@@ -120,6 +122,11 @@ public class Player : MonoBehaviour
         if (healthPacks < maxHealthPacks)
         {
             healthPacks++;
+        }
+
+        if (healthPacks > maxHealthPacks)
+        {
+            healthPacks = maxHealthPacks;
         }
     }
 

@@ -41,7 +41,7 @@ public class Shooting : MonoBehaviour
     {
         shootTimer = shootCooldown;
         currentAmmo = startingAmmo;
-        reserveAmmo = (startingAmmo * startingRounds) - startingAmmo;
+        reserveAmmo = startingAmmo * startingRounds;
         if (maxAmmo == 0)
         {
             maxAmmo = reserveAmmo;
@@ -163,7 +163,10 @@ public class Shooting : MonoBehaviour
 
     public void AddAmmo(int ammo)
     {
-        reserveAmmo += ammo;
+        if (reserveAmmo < maxAmmo)
+        {
+            reserveAmmo += ammo;
+        }
 
         if (reserveAmmo > maxAmmo)
         {
