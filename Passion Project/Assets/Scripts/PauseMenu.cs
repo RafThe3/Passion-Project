@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private bool shouldPlayMusic = false;
     [SerializeField] private AudioSource[] audioSourcesToMute;
 
-    public bool AutoLockCursor { get; set; } = true;
+    //public bool AutoLockCursor { get; set; } = true;
 
     private AudioSource audioSource;
 
@@ -34,16 +34,19 @@ public class PauseMenu : MonoBehaviour
             EnablePauseMenu();
         }
 
+        /*
         if (AutoLockCursor)
         {
             Cursor.lockState = pauseMenu.enabled ? CursorLockMode.None : CursorLockMode.Locked;
         }
+        */
     }
 
     public void EnablePauseMenu()
     {
         pauseMenu.enabled = !pauseMenu.enabled;
         Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+        Cursor.lockState = Time.timeScale == 1 ? CursorLockMode.Locked : CursorLockMode.None;
         if (shouldPlayMusic)
         {
             audioSource.Play();
@@ -75,6 +78,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.enabled = false;
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
         if (shouldPlayMusic)
         {
             audioSource.Stop();
