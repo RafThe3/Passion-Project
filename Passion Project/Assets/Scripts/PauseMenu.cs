@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using StarterAssets;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private bool shouldPlayMusic = false;
     [SerializeField] private AudioSource[] audioSourcesToMute;
 
-    //public bool AutoLockCursor { get; set; } = true;
+    private FirstPersonController controller;
+
+    public bool AutoLockCursor { get; set; } = true;
 
     private AudioSource audioSource;
 
     private void Awake()
     {
+        controller = FindObjectOfType<FirstPersonController>();
         if (shouldPlayMusic)
         {
             audioSource = GetComponent<AudioSource>();
@@ -29,17 +33,15 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale > 0)
         {
             EnablePauseMenu();
         }
 
-        /*
         if (AutoLockCursor)
         {
-            Cursor.lockState = pauseMenu.enabled ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.lockState = Time.timeScale == 0 ? CursorLockMode.None : CursorLockMode.Locked;
         }
-        */
     }
 
     public void EnablePauseMenu()

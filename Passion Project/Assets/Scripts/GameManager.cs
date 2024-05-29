@@ -6,13 +6,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //[SerializeField] private bool lockCursor = false;
+    [SerializeField] private bool lockCursor = false;
 
     private void Start()
     {
         Time.timeScale = 1;
 
-        //Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.lockState = lockCursor ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     public void LoadAScene(int scene)
@@ -50,11 +50,6 @@ public class GameManager : MonoBehaviour
     public void DisableCanvas(Canvas canvas)
     {
         canvas.enabled = false;
-    }
-
-    public void PlayerToSpawn(int classNumber)
-    {
-        PlayerPrefs.SetInt("PlayerToSpawn", classNumber);
     }
 
     public void PlaySFX(AudioClip audioClip)

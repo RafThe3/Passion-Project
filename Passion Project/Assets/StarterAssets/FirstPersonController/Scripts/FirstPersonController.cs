@@ -60,7 +60,6 @@ namespace StarterAssets
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
 		private float _tempRotationSpeed;
-		private float _tempSpeed;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -273,9 +272,10 @@ namespace StarterAssets
 
 		public void SetRotationSpeed(float speed)
         {
-			_rotationVelocity = speed;
+			_tempRotationSpeed = speed;
+			RotationSpeed = speed;
         }
 
-		public float GetRotationSpeed => _rotationVelocity;
+		public float GetRotationSpeed => _tempRotationSpeed;
 	}
 }
