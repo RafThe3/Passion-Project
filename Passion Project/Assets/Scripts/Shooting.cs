@@ -53,7 +53,7 @@ public class Shooting : MonoBehaviour
         canShoot = Time.timeScale > 0;
         shootTimer += Time.deltaTime;
 
-        UpdateAnimation();
+        AimDownSights();
 
         isShooting = ((Input.GetButtonDown("Fire1") && !isAutomatic)
                             || (Input.GetButton("Fire1") && isAutomatic))
@@ -85,7 +85,7 @@ public class Shooting : MonoBehaviour
         ammoText.text = $"{currentAmmo} / {reserveAmmo}";
     }
 
-    private void UpdateAnimation()
+    private void AimDownSights()
     {
         bool isAiming = Input.GetKey(KeyCode.Mouse1);
         GetComponent<Animator>().SetBool("isAiming", isAiming);
@@ -95,6 +95,8 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
+        //add three or four round burst
+
         if (currentAmmo > 0)
         {
             GameObject projectileClone = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
