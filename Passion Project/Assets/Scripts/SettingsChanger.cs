@@ -5,12 +5,14 @@ using UnityEngine;
 using StarterAssets;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
-public class CameraSettings : MonoBehaviour
+public class SettingsChanger : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI settingText;
-    [SerializeField] private int placeValueToRound = 10;
+    [Tooltip("Which decimal place to convert to an integer. (10 = tenths, 100 = hundredths, etc.)")] 
+    [Min(0), SerializeField] private int moveDecimalPlaces = 10;
     [SerializeField] private string settingType = string.Empty;
 
     private void Start()
@@ -20,9 +22,14 @@ public class CameraSettings : MonoBehaviour
 
     private void Update()
     {
-        if (placeValueToRound % 10 != 0)
+        AdjustSettings();
+    }
+
+    private void AdjustSettings()
+    {
+        if (moveDecimalPlaces % 10 != 0)
         {
-            throw new ArgumentException("Place value must be a value divisible by 10.");
+            throw new ArgumentException("Number must be a value divisible by 10.");
         }
 
         if (settingType == string.Empty)
@@ -32,11 +39,11 @@ public class CameraSettings : MonoBehaviour
 
         if (!slider.wholeNumbers)
         {
-            slider.value = Mathf.Round(slider.value * placeValueToRound) / placeValueToRound;
+            slider.value = Mathf.Round(slider.value * moveDecimalPlaces) / moveDecimalPlaces;
         }
 
         PlayerPrefs.SetFloat(settingType, slider.value);
-        settingText.text = $"{PlayerPrefs.GetFloat(settingType) * placeValueToRound}";
+        settingText.text = $"{PlayerPrefs.GetFloat(settingType) * moveDecimalPlaces}";
     }
 
     public void AddSliderValue()

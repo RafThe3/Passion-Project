@@ -52,6 +52,36 @@ public class GameManager : MonoBehaviour
         canvas.enabled = false;
     }
 
+    public void ChangeScreenMode(int screenMode)
+    {
+        FullScreenMode mode = FullScreenMode.FullScreenWindow;
+
+        switch (screenMode)
+        {
+            case 0:
+                mode = FullScreenMode.ExclusiveFullScreen;
+                break;
+
+            case 1:
+                mode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 2:
+                mode = FullScreenMode.MaximizedWindow;
+                break;
+
+            case 3:
+                mode = FullScreenMode.Windowed;
+                break;
+
+            default:
+                break;
+        }
+
+        Debug.Log(mode);
+        Screen.fullScreenMode = mode;
+    }
+
     public void PlaySFX(AudioClip audioClip)
     {
         Camera.main.GetComponent<AudioSource>().PlayOneShot(audioClip);
