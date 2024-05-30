@@ -142,7 +142,7 @@ MonoBehaviour:
   packType: 2
   pickupType: 1
   pickupSFX: {fileID: 8300000, guid: fbc32c8618b5a4941b3274d3f26eec45, type: 3}
-  ammoToGive: 10
+  ammoToGive: 25
   pickupDistance: 1
   pickupText: {fileID: 0}
 --- !u!1 &2999081685778609876
