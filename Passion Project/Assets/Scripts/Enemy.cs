@@ -86,6 +86,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("Player");
         Vector3 playerPosition = player.transform.position - transform.position;
+
         if (playerPosition.magnitude < chaseDistance)
         {
             agent.destination = player.transform.position;
