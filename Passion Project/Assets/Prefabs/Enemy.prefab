@@ -512,7 +512,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -536,12 +536,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b99aa36dce6c647ad64ccc9bcb7858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 5
+  chaseDistance: 15
   isInvincible: 0
   startingHealth: 100
   maxHealth: 100
-  attackType: 0
-  damage: 5
+  attackType: 1
+  damage: 7
   projectilePrefab: {fileID: 0}
   projectileSpawnPoint: {fileID: 0}
   projectileSpeed: 1

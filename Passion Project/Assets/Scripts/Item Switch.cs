@@ -5,26 +5,22 @@ using UnityEngine;
 
 public class ItemSwitch : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> items;
+    [SerializeField] private GameObject item1, item2;
     [Min(0), SerializeField] private float switchCooldown = 1;
 
     private bool hasSwitched = false;
 
     private void Start()
     {
-        foreach (GameObject item in items)
-        {
-            item.SetActive(false);
-        }
-
-        items[0].SetActive(true);
+        item1.SetActive(true);
+        item2.SetActive(false);
     }
 
     private void Update()
     {
         bool switchedItem = Mathf.Abs(Input.mouseScrollDelta.y) > Mathf.Epsilon;
 
-        if (switchedItem && !hasSwitched && Camera.main.fieldOfView == 60)
+        if (switchedItem && !hasSwitched && Camera.main.fieldOfView == 60 && item2 && Time.timeScale > 0)
         {
             StartCoroutine(SwitchItem(switchCooldown));
         }
@@ -33,22 +29,16 @@ public class ItemSwitch : MonoBehaviour
     private IEnumerator SwitchItem(float cooldown)
     {
         hasSwitched = true;
-
-        for (int i = 0; i < items.Count; i += 0)
+        
+        if (item1.activeSelf)
         {
-            i++;
-
-            if (i > items.Count - 1)
-            {
-                i = 0;
-                items[i].SetActive(true);
-                items[^1].SetActive(false);
-            }
-            else
-            {
-                items[i].SetActive(true);
-                items[i - 1].SetActive(false);
-            }
+            item1.SetActive(false);
+            item2.SetActive(true);
+        }
+        else if (item2.activeSelf)
+        {
+            item1.SetActive(true);
+            item2.SetActive(false);
         }
 
         yield return new WaitForSeconds(cooldown);
@@ -56,13 +46,39 @@ public class ItemSwitch : MonoBehaviour
         hasSwitched = false;
     }
 
+    /*
     public void AddItem(GameObject item)
     {
         items.Add(item);
     }
+    */
 
+    /*
     public void SwapItem(int index, GameObject item)
     {
         items.Insert(index, item);
+    }
+    */
+
+    public void SwapItem(int itemNum, GameObject item)
+    {
+        if (itemNum is not 1 or 2)
+        {
+            throw new ArgumentException("Item number must be either 1 or 2.");
+        }
+
+        switch (itemNum)
+        {
+            case 1:
+                item1 = item;
+                break;
+
+            case 2:
+                item2 = item;
+                break;
+
+            default:
+                break;
+        }
     }
 }

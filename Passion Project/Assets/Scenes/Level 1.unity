@@ -6152,9 +6152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e31ed805a6d494f941329952904f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 19638978}
-  - {fileID: 637760853}
+  item1: {fileID: 19638978}
+  item2: {fileID: 637760853}
   switchCooldown: 1
 --- !u!1 &1225698082
 GameObject:
