@@ -41,7 +41,14 @@ public class Shooting : MonoBehaviour
     {
         shootTimer = shootCooldown;
         currentAmmo = startingAmmo;
-        reserveAmmo = startingAmmo * startingRounds;
+        if (startingAmmo * startingRounds > maxAmmo)
+        {
+            reserveAmmo = maxAmmo;
+        }
+        else
+        {
+            reserveAmmo = startingAmmo * startingRounds;
+        }
         if (maxAmmo == 0)
         {
             maxAmmo = reserveAmmo;
@@ -87,7 +94,12 @@ public class Shooting : MonoBehaviour
 
     private void AimDownSights()
     {
-        bool isAiming = Input.GetKey(KeyCode.Mouse1);
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
+        bool isAiming = Input.GetButton("Aim Down Sights");
         GetComponent<Animator>().SetBool("isAiming", isAiming);
         Camera.main.GetComponent<Animator>().SetBool("isAiming", isAiming);
         crosshair.enabled = !isAiming;

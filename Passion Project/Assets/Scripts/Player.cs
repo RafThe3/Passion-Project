@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //GetComponent<SaveSystem>().Load();
     }
 
     public void AddHealthPack()

@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScreenMode(int screenMode)
     {
-        FullScreenMode mode = FullScreenMode.FullScreenWindow;
+        FullScreenMode mode = new();
 
         switch (screenMode)
         {

@@ -66,7 +66,11 @@ public class UtilityPack : MonoBehaviour
                 break;
 
             case PackType.Ammo:
-                FindObjectOfType<Shooting>().AddAmmo(ammoToGive);
+                Shooting[] shootings = FindObjectsOfType<Shooting>();
+                foreach (Shooting shooting in shootings)
+                {
+                    shooting.AddAmmo(ammoToGive);
+                }
                 break;
 
             default:
@@ -85,7 +89,11 @@ public class UtilityPack : MonoBehaviour
                 break;
 
             case PackType.Ammo:
-                FindObjectOfType<Shooting>().AddAmmo(ammoToGive);
+                Shooting[] shootings = FindObjectsOfType<Shooting>();
+                foreach (Shooting shooting in shootings)
+                {
+                    shooting.AddAmmo(ammoToGive);
+                }
                 break;
 
             default:

@@ -273,7 +273,7 @@ namespace StarterAssets
 		public void SetRotationSpeed(float speed)
         {
 			_tempRotationSpeed = speed;
-			RotationSpeed = speed;
+			RotationSpeed = _tempRotationSpeed;
         }
 
 		public float GetRotationSpeed => _tempRotationSpeed;
