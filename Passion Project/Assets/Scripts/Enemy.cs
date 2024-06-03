@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     private AudioSource audioSource;
     //private Animator animator;
     private Rigidbody rb;
+    private Rigidbody rigidbody;
 
     private void Awake()
     {
