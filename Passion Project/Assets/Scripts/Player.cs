@@ -4,9 +4,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using StarterAssets;
 
 public class Player : MonoBehaviour
 {
+    [Header("Movement")]
+    [SerializeField] private bool infiniteStamina = false;
+    [Min(0), SerializeField] private float maxStamina = 1;
+    [Min(0), SerializeField] private float sprintTime = 1;
+    [Min(0), SerializeField] private float sprintCooldown = 1;
+    [Min(0), SerializeField] private float staminaRecoveryTime = 1;
+
     [Header("Health")]
     [SerializeField] private bool isInvincible = false;
     [Min(0), SerializeField] private int startingHealth = 1;
@@ -15,22 +23,37 @@ public class Player : MonoBehaviour
     [Min(0), SerializeField] private int maxHealthPacks = 1;
     [Min(0), SerializeField] private float healInterval = 1;
 
+    [Header("Leveling")]
+    [Min(0), SerializeField] private int startingLevel = 1;
+    [Min(0), SerializeField] private int startingXP = 0;
+    [Min(0), SerializeField] private int startingLevelUpXP = 1;
+    [Min(0), SerializeField] private int levelCap = 1;
+    [Min(0), SerializeField] private int levelUpXPMultiplier = 1;
+
     [Header("UI")]
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI healthPacksText;
+    [SerializeField] private Slider xpBar;
+    [SerializeField] private TextMeshProUGUI xpText;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Slider staminaBar;
 
     //Internal Variables
-    private int currentHealth = 0;
-    private int healthPacks = 0;
-    private float healTimer = 0;
+    private int currentHealth;
+    private int healthPacks;
+    private float healTimer;
+    private int currentLevel, currentXP, currentLevelUpXP, xpCap;
+    private float sprintTimer, sprintCooldownTimer, staminaRecoveryTimer;
     //private Animator animator;
     private CharacterController character;
+    private FirstPersonController controller;
 
     private void Awake()
     {
         //animator = GetComponent<Animator>();
         character = GetComponent<CharacterController>();
+        controller = GetComponent<FirstPersonController>();
     }
 
     private void Start()
@@ -43,6 +66,12 @@ public class Player : MonoBehaviour
         healthPacks = startingHealthPacks;
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+        xpBar.value = startingXP;
+        xpBar.maxValue = startingLevelUpXP;
+        currentLevelUpXP = startingLevelUpXP;
+        currentXP = startingXP;
+        currentLevel = startingLevel;
+        xpCap = levelCap * startingLevelUpXP;
     }
 
     private void Update()
@@ -54,28 +83,67 @@ public class Player : MonoBehaviour
         //animator.SetBool("isMoving", isMoving);
 
         //test
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(10);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            AddXP();
+        }
+        //
+
+        if (Input.GetButtonDown("Heal"))
         {
             Heal(10);
         }
+
+        if (currentXP >= currentLevelUpXP)
+        {
+            LevelUp();
+        }
+
+        if (controller.isSprinting)
+        {
+            staminaBar.maxValue = sprintTime;
+            staminaBar.value = sprintTime -= Time.deltaTime;
+        }
+        else if (staminaBar.value < maxStamina)
+        {
+            controller.isSprinting = false;
+            sprintCooldownTimer += Time.deltaTime;
+
+            if (sprintCooldownTimer >= sprintCooldown)
+            {
+                controller.isSprinting = true;
+                //disable adding time to sprint cooldown timer
+            }
+        }
+    }
+
+    private void LevelUp()
+    {
+        currentXP = 0;
+        currentLevel++;
+        currentLevelUpXP += startingLevelUpXP * levelUpXPMultiplier;
     }
 
     private void UpdateUI()
     {
         healthBar.value = currentHealth;
         healthText.text = $"Health: {currentHealth} / {maxHealth}";
-
-        /*
-        Ray cameraDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
-        crosshair.color = Physics.Raycast(cameraDirection, out RaycastHit hit) && hit.collider.CompareTag("Enemy") ? Color.red
-                        : hit.collider.CompareTag("Player") ? Color.blue
-                        : Color.white;
-        */
+        levelText.text = $"Level: {currentLevel}";
+        if (currentLevelUpXP < xpCap)
+        {
+            xpBar.value = currentXP;
+            xpBar.maxValue = currentLevelUpXP;
+        }
+        else
+        {
+            xpBar.value = xpBar.maxValue;
+        }
+        xpText.text = $"XP: {xpBar.value} / {xpBar.maxValue}";
     }
 
     public void TakeDamage(int damage)
@@ -132,12 +200,53 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AddXP()
+    {
+        if (currentLevelUpXP < xpCap)
+        {
+            currentXP++;
+        }
+    }
+
+    public void GiveXP(int amount)
+    {
+        if (currentLevelUpXP < xpCap)
+        {
+            currentXP += amount;
+        }
+    }
     public void SetMaxHealth(int health)
     {
         maxHealth = health;
     }
 
+    public void SetCurrentHealth(int health)
+    {
+        currentHealth = health;
+    }
+
+    public void SetCurrentXP(int xp)
+    {
+        currentXP = xp;
+    }
+
+    public void SetCurrentLevelUpXP(int xp)
+    {
+        currentLevelUpXP = xp;
+    }
+
+    public void SetCurrentLevel(int level)
+    {
+        currentLevel = level;
+    }
+
     public int GetMaxHealth => maxHealth;
 
     public int GetCurrentHealth => currentHealth;
+
+    public int GetCurrentLevel => currentLevel;
+
+    public int GetLevelUpXP => currentLevelUpXP;
+
+    public int GetCurrentXP => currentXP;
 }

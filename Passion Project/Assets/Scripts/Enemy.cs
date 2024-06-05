@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
     //private Animator animator;
     private Rigidbody rb;
     private Rigidbody rigidbody;
+    private GameObject player;
 
     private void Awake()
     {
@@ -66,6 +67,7 @@ public class Enemy : MonoBehaviour
         enemyUI.enabled = false;
         meleeTimer = meleeInterval;
         shootTimer = shootInterval;
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
@@ -85,10 +87,10 @@ public class Enemy : MonoBehaviour
 
     private void MoveEnemy()
     {
-        GameObject player = GameObject.FindWithTag("Player");
         Vector3 playerPosition = player.transform.position - transform.position;
+        bool isPlayerNear = playerPosition.magnitude < chaseDistance;
 
-        if (playerPosition.magnitude < chaseDistance)
+        if (isPlayerNear)
         {
             agent.destination = player.transform.position;
         }
@@ -111,8 +113,14 @@ public class Enemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        player.GetComponent<Player>().AddXP();
+        Destroy(gameObject);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -126,7 +134,6 @@ public class Enemy : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject player = GameObject.FindWithTag("Player");
         Vector3 playerPosition = player.transform.position - transform.position;
 
         if (shootTimer >= shootInterval && playerPosition.magnitude < shootDistance)

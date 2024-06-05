@@ -14,7 +14,6 @@ public class Checkpoint : MonoBehaviour
         interactText.enabled = false;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -30,7 +29,7 @@ public class Checkpoint : MonoBehaviour
 
             if (hasInteracted)
             {
-                //player.GetComponent<SaveSystem>().Save();
+                player.GetComponent<SaveSystem>().Save();
             }
         }
         else

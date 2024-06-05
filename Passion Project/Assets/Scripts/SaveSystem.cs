@@ -12,10 +12,13 @@ public class SaveSystem : MonoBehaviour
 
     private static readonly string keyWord = "password";
     private string file;
+    private Player player;
 
     private void Awake()
     {
         file = $"{Application.persistentDataPath}/{name}.json";
+
+        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -47,11 +50,19 @@ public class SaveSystem : MonoBehaviour
 
     public void Save()
     {
-        SaveData myData = new();
-        
-        myData.x = transform.position.x;
-        myData.y = transform.position.y;
-        myData.z = transform.position.z;
+        //Save player values
+        SaveData myData = new()
+        {
+            x = transform.position.x,
+            y = transform.position.y,
+            z = transform.position.z,
+            currentHealth = player.GetCurrentHealth,
+            maxHealth = player.GetMaxHealth,
+            currentLevel = player.GetCurrentLevel,
+            currentLevelUpXP = player.GetLevelUpXP,
+            currentXP = player.GetCurrentXP
+        };
+        //
 
         //Important - DO NOT DELETE
         string myDataString = JsonUtility.ToJson(myData);
@@ -72,8 +83,15 @@ public class SaveSystem : MonoBehaviour
             jsonData = EncryptDecryptData(jsonData);
             SaveData myData = JsonUtility.FromJson<SaveData>(jsonData);
             //
-            
+
+            //Load player values
             transform.position = new Vector3(myData.x, myData.y, myData.z);
+            player.SetCurrentHealth(myData.currentHealth);
+            player.SetMaxHealth(myData.maxHealth);
+            player.SetCurrentLevel(myData.currentLevel);
+            player.SetCurrentLevelUpXP(myData.currentLevelUpXP);
+            player.SetCurrentXP(myData.currentXP);
+            //
 
             progressText.text = "Progress loaded!";
             StartCoroutine(ShowProgressText(textDuration));
@@ -111,7 +129,7 @@ public class SaveSystem : MonoBehaviour
 public class SaveData
 {
     public float x, y, z;
-    public int currentExp, maxExp, currentLevel;
-    public float currentHealth, maxHealth;
+    public int currentXP, currentLevelUpXP, currentLevel;
+    public int currentHealth, maxHealth;
     public int areasConquered;
 }
