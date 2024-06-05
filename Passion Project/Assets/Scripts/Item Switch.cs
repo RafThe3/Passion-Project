@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ItemSwitch : MonoBehaviour
 {
     [SerializeField] private GameObject item1, item2;
     [Min(0), SerializeField] private float switchCooldown = 1;
+    [SerializeField] private TextMeshProUGUI gunNameText;
 
     private bool hasSwitched = false;
 
     private void Start()
     {
-        item1.SetActive(true);
         item2.SetActive(false);
+        item1.SetActive(true);
+        gunNameText.text = item1.name;
     }
 
     private void Update()
@@ -34,11 +37,13 @@ public class ItemSwitch : MonoBehaviour
         {
             item1.SetActive(false);
             item2.SetActive(true);
+            gunNameText.text = item2.name;
         }
         else if (item2.activeSelf)
         {
-            item1.SetActive(true);
             item2.SetActive(false);
+            item1.SetActive(true);
+            gunNameText.text = item1.name;
         }
 
         yield return new WaitForSeconds(cooldown);

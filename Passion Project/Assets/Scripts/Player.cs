@@ -18,9 +18,10 @@ public class Player : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI healthPacksText;
 
     //Internal Variables
-    private float currentHealth = 0;
+    private int currentHealth = 0;
     private int healthPacks = 0;
     private float healTimer = 0;
     //private Animator animator;
@@ -135,4 +136,8 @@ public class Player : MonoBehaviour
     {
         maxHealth = health;
     }
+
+    public int GetMaxHealth => maxHealth;
+
+    public int GetCurrentHealth => currentHealth;
 }

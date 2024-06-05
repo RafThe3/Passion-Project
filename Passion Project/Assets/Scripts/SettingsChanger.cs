@@ -2,22 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StarterAssets;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Audio;
 
 public class SettingsChanger : MonoBehaviour
 {
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI settingText;
-    [Tooltip("Which decimal place to convert to an integer. (10 = tenths, 100 = hundredths, etc.)")] 
+    [Tooltip("Which decimal place to convert into an integer (10 - tenths, 100 - hundredths, etc.")]
     [Min(0), SerializeField] private int moveDecimalPlaces = 10;
     [SerializeField] private string settingType = string.Empty;
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(settingType);
+        slider.value = PlayerPrefs.GetFloat(settingType, 1f);
     }
 
     private void Update()
@@ -29,12 +27,12 @@ public class SettingsChanger : MonoBehaviour
     {
         if (moveDecimalPlaces % 10 != 0)
         {
-            throw new ArgumentException("Number must be a value divisible by 10.");
+            throw new ArgumentException("Decimal place must match the decimal place value");
         }
 
         if (settingType == string.Empty)
         {
-            throw new ArgumentException("Setting type needs a name.");
+            throw new ArgumentException("Setting type requires a name.");
         }
 
         if (!slider.wholeNumbers)

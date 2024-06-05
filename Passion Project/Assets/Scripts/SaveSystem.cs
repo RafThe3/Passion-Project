@@ -10,10 +10,6 @@ public class SaveSystem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI progressText;
     [SerializeField] private float textDuration = 1;
 
-    //private PlayerExp playerExp;
-
-    //private TextMeshProUGUI objectiveText;
-
     private static readonly string keyWord = "password";
     private string file;
 
@@ -29,6 +25,15 @@ public class SaveSystem : MonoBehaviour
 
     private void Update()
     {
+        SaveData myData = new();
+
+        Debug.Log(new Vector3(myData.x, myData.y, myData.z));
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Save();
+        }
+
         if (Input.GetKeyDown(KeyCode.L))
         {
             Load();
@@ -43,7 +48,7 @@ public class SaveSystem : MonoBehaviour
     public void Save()
     {
         SaveData myData = new();
-
+        
         myData.x = transform.position.x;
         myData.y = transform.position.y;
         myData.z = transform.position.z;
@@ -108,5 +113,5 @@ public class SaveData
     public float x, y, z;
     public int currentExp, maxExp, currentLevel;
     public float currentHealth, maxHealth;
-    public float areasConquered;
+    public int areasConquered;
 }
