@@ -22,11 +22,12 @@ public class Checkpoint : MonoBehaviour
         Vector3 playerPos = player.transform.position - transform.position;
         bool isPlayerNear = playerPos.magnitude < interactDistance;
 
+
         if (isPlayerNear)
         {
             bool hasInteracted = Input.GetButtonDown("Interact");
 
-            interactText.enabled = true;
+            interactText.enabled = !checkpointMenu.enabled;
             UpdateInteractText();
 
             if (hasInteracted)
