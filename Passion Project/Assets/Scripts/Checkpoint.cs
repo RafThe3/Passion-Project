@@ -8,10 +8,12 @@ public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI interactText;
     [Min(0), SerializeField] private float interactDistance = 1;
+    [SerializeField] private Canvas checkpointMenu;
 
     private void Start()
     {
         interactText.enabled = false;
+        checkpointMenu.enabled = false;
     }
 
     private void Update()
@@ -29,7 +31,9 @@ public class Checkpoint : MonoBehaviour
 
             if (hasInteracted)
             {
-                player.GetComponent<SaveSystem>().Save();
+                checkpointMenu.enabled = true;
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
         else
@@ -43,15 +47,15 @@ public class Checkpoint : MonoBehaviour
         switch (Application.platform)
         {
             case RuntimePlatform.WindowsPlayer | RuntimePlatform.WindowsEditor:
-                interactText.text = "Press E to save";
+                interactText.text = "Press E to interact";
                 break;
 
             case RuntimePlatform.XboxOne:
-                interactText.text = "Press Y to save";
+                interactText.text = "Press Y to interact";
                 break;
 
             case RuntimePlatform.PS4 | RuntimePlatform.PS5:
-                interactText.text = "Press Triangle to save";
+                interactText.text = "Press Triangle to interact";
                 break;
 
             default:

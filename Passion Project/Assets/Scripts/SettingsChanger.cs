@@ -15,7 +15,7 @@ public class SettingsChanger : MonoBehaviour
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(settingType, 1f);
+        slider.value = PlayerPrefs.GetFloat(settingType, 1);
     }
 
     private void Update()

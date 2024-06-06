@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using StarterAssets;
+using Unity.XR.Oculus.Input;
 
 public class Player : MonoBehaviour
 {
@@ -82,6 +83,11 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha1))
         {
             AddXP();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GetComponent<SaveSystem>().Load();
         }
         //
 

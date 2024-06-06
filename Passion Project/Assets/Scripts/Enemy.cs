@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
         Vector3 playerPosition = player.transform.position - transform.position;
         bool isPlayerNear = playerPosition.magnitude < chaseDistance;
 
-        if (isPlayerNear)
+        if (isPlayerNear || currentHealth < maxHealth)
         {
             agent.destination = player.transform.position;
         }

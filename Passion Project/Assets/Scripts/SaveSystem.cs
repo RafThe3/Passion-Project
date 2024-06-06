@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -56,7 +57,8 @@ public class SaveSystem : MonoBehaviour
             maxHealth = player.GetMaxHealth,
             currentLevel = player.GetCurrentLevel,
             currentLevelUpXP = player.GetLevelUpXP,
-            currentXP = player.GetCurrentXP
+            currentXP = player.GetCurrentXP,
+            scene = SceneManager.GetActiveScene().buildIndex
         };
         //
 
@@ -128,4 +130,5 @@ public class SaveData
     public int currentXP, currentLevelUpXP, currentLevel;
     public int currentHealth, maxHealth;
     public int areasConquered;
+    public int scene;
 }
