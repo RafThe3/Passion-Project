@@ -8,13 +8,6 @@ using StarterAssets;
 
 public class Player : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private bool infiniteStamina = false;
-    [Min(0), SerializeField] private float maxStamina = 1;
-    [Min(0), SerializeField] private float sprintTime = 1;
-    [Min(0), SerializeField] private float sprintCooldown = 1;
-    [Min(0), SerializeField] private float staminaRecoveryTime = 1;
-
     [Header("Health")]
     [SerializeField] private bool isInvincible = false;
     [Min(0), SerializeField] private int startingHealth = 1;
@@ -37,14 +30,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Slider xpBar;
     [SerializeField] private TextMeshProUGUI xpText;
     [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private Slider staminaBar;
 
     //Internal Variables
     private int currentHealth;
     private int healthPacks;
     private float healTimer;
     private int currentLevel, currentXP, currentLevelUpXP, xpCap;
-    private float sprintTimer, sprintCooldownTimer, staminaRecoveryTimer;
     //private Animator animator;
     private CharacterController character;
     private FirstPersonController controller;
@@ -102,23 +93,6 @@ public class Player : MonoBehaviour
         if (currentXP >= currentLevelUpXP)
         {
             LevelUp();
-        }
-
-        if (controller.isSprinting)
-        {
-            staminaBar.maxValue = sprintTime;
-            staminaBar.value = sprintTime -= Time.deltaTime;
-        }
-        else if (staminaBar.value < maxStamina)
-        {
-            controller.isSprinting = false;
-            sprintCooldownTimer += Time.deltaTime;
-
-            if (sprintCooldownTimer >= sprintCooldown)
-            {
-                controller.isSprinting = true;
-                //disable adding time to sprint cooldown timer
-            }
         }
     }
 

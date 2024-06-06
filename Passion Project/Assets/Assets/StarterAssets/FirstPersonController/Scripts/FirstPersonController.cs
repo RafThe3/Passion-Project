@@ -61,7 +61,6 @@ namespace StarterAssets
 		private float _terminalVelocity = 53.0f;
 		private float _tempRotationSpeed;
 		private float _aimRotationSpeed;
-		[HideInInspector] public bool isSprinting;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -122,7 +121,6 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			RotationSpeed = Time.timeScale == 0 ? 0 : Input.GetButton("Aim Down Sights") ? _aimRotationSpeed : _tempRotationSpeed;
-			isSprinting = _input.sprint;
 		}
 
 		private void LateUpdate()

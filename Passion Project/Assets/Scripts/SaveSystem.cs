@@ -28,10 +28,6 @@ public class SaveSystem : MonoBehaviour
 
     private void Update()
     {
-        SaveData myData = new();
-
-        Debug.Log(new Vector3(myData.x, myData.y, myData.z));
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             Save();
