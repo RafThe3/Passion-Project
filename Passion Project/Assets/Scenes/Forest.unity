@@ -3003,12 +3003,17 @@ PrefabInstance:
     - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
       propertyPath: sprintCooldown
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
       propertyPath: startingLevelUpXP
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: sprintCooldownTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
@@ -3019,6 +3024,16 @@ PrefabInstance:
         type: 3}
       propertyPath: levelUpXPMultiplier
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: staminaRecoveryTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511281707760173340, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: staminaRecoverySpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13256,20 +13271,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'WASD, Left Stick - Move
 
-    Space, A (Xbox), X (Playstation) - Jump
+    Shift, Press Left Stick - Sprint
 
-    RMB,
-    LT, L2, - Aim
+    Space,
+    A (Xbox), X (Playstation) - Jump
+
+    RMB, LT, L2, - Aim
 
     LMB, RT, R2 - Shoot
 
-    R, X (Xbox), Square (Playstation)
-    - Reload
+    R,
+    X (Xbox), Square (Playstation) - Reload
 
-    Q, B (Xbox), circle (Playstation) - Heal
+    Q, B (Xbox), circle (Playstation)
+    - Heal
 
-    E, Y (Xbox), Triangle
-    (Playstation) - Interact'
+    E, Y (Xbox), Triangle (Playstation) - Interact'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af69ebaf62255ad4da1c09d2f86b5c78, type: 2}
   m_sharedMaterial: {fileID: 4451968396893793843, guid: af69ebaf62255ad4da1c09d2f86b5c78,

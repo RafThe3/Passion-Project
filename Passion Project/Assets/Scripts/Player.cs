@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private bool infiniteStamina = false;
     [Min(0), SerializeField] private float sprintTime = 1;
-    [Min(0), SerializeField] private float sprintCooldown = 1;
+    [Min(0), SerializeField] private float sprintCooldownTime = 1;
+    [Min(0), SerializeField] private float staminaRecoverySpeed = 1;
 
     [Header("Health")]
     [SerializeField] private bool isInvincible = false;
@@ -127,7 +128,7 @@ public class Player : MonoBehaviour
             staminaBarFillArea.color = Color.red;
         }
 
-        if (isOnSprintCooldown && staminaBar.value >= sprintCooldown)
+        if (isOnSprintCooldown && staminaBar.value >= sprintCooldownTime)
         {
             isOnSprintCooldown = false;
             controller.SprintSpeed = controller._tempSprintSpeed;
@@ -140,7 +141,7 @@ public class Player : MonoBehaviour
         }
         else if (staminaBar.value < staminaBar.maxValue)
         {
-            staminaBar.value += Time.deltaTime;
+            staminaBar.value += Time.deltaTime * staminaRecoverySpeed;
         }
     }
 

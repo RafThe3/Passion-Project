@@ -3348,20 +3348,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'WASD, Left Stick - Move
 
-    Space, A (Xbox), X (Playstation) - Jump
+    Shift, Press Left Stick - Sprint
 
-    RMB,
-    LT, L2, - Aim
+    Space,
+    A (Xbox), X (Playstation) - Jump
+
+    RMB, LT, L2, - Aim
 
     LMB, RT, R2 - Shoot
 
-    R, X (Xbox), Square (Playstation)
-    - Reload
+    R,
+    X (Xbox), Square (Playstation) - Reload
 
-    Q, B (Xbox), circle (Playstation) - Heal
+    Q, B (Xbox), circle (Playstation)
+    - Heal
 
-    E, Y (Xbox), Triangle
-    (Playstation) - Interact'
+    E, Y (Xbox), Triangle (Playstation) - Interact'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af69ebaf62255ad4da1c09d2f86b5c78, type: 2}
   m_sharedMaterial: {fileID: 4451968396893793843, guid: af69ebaf62255ad4da1c09d2f86b5c78,
