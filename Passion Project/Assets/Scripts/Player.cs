@@ -9,6 +9,11 @@ using Unity.XR.Oculus.Input;
 
 public class Player : MonoBehaviour
 {
+    [Header("Movement")]
+    [SerializeField] private bool infiniteStamina = false;
+    [Min(0), SerializeField] private float sprintTime = 1;
+    [Min(0), SerializeField] private float sprintCooldown = 1;
+
     [Header("Health")]
     [SerializeField] private bool isInvincible = false;
     [Min(0), SerializeField] private int startingHealth = 1;
@@ -31,12 +36,16 @@ public class Player : MonoBehaviour
     [SerializeField] private Slider xpBar;
     [SerializeField] private TextMeshProUGUI xpText;
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Slider staminaBar;
+    [SerializeField] private Image staminaBarFillArea;
 
     //Internal Variables
     private int currentHealth;
     private int healthPacks;
     private float healTimer;
     private int currentLevel, currentXP, currentLevelUpXP, xpCap;
+    private bool isOnSprintCooldown;
+    private bool isMoving;
     //private Animator animator;
     private CharacterController character;
     private FirstPersonController controller;
@@ -64,6 +73,8 @@ public class Player : MonoBehaviour
         currentXP = startingXP;
         currentLevel = startingLevel;
         xpCap = levelCap * startingLevelUpXP;
+        staminaBar.maxValue = sprintTime;
+        staminaBar.value = sprintTime;
     }
 
     private void Update()
@@ -71,7 +82,7 @@ public class Player : MonoBehaviour
         healTimer += Time.deltaTime;
         UpdateUI();
 
-        bool isMoving = Mathf.Abs(character.velocity.z) > Mathf.Epsilon;
+        isMoving = Mathf.Abs(character.velocity.z) > Mathf.Epsilon;
         //animator.SetBool("isMoving", isMoving);
 
         //test
@@ -99,6 +110,37 @@ public class Player : MonoBehaviour
         if (currentXP >= currentLevelUpXP)
         {
             LevelUp();
+        }
+
+        if (!infiniteStamina)
+        {
+            Sprint();
+        }
+    }
+
+    private void Sprint()
+    {
+        if (staminaBar.value <= 0)
+        {
+            isOnSprintCooldown = true;
+            controller.SprintSpeed = controller.MoveSpeed;
+            staminaBarFillArea.color = Color.red;
+        }
+
+        if (isOnSprintCooldown && staminaBar.value >= sprintCooldown)
+        {
+            isOnSprintCooldown = false;
+            controller.SprintSpeed = controller._tempSprintSpeed;
+            staminaBarFillArea.color = Color.yellow;
+        }
+
+        if (controller.isSprinting && !isOnSprintCooldown && isMoving)
+        {
+            staminaBar.value -= Time.deltaTime;
+        }
+        else if (staminaBar.value < staminaBar.maxValue)
+        {
+            staminaBar.value += Time.deltaTime;
         }
     }
 

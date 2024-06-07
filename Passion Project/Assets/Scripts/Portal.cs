@@ -31,7 +31,6 @@ public class Portal : MonoBehaviour
 
         if (canCountdown)
         {
-            interactText.enabled = false;
             countdownText.enabled = true;
             countdownText.text = $"Teleporting in {(int)(countdown -= Time.deltaTime)}";
             if (countdown <= 0)
@@ -42,7 +41,7 @@ public class Portal : MonoBehaviour
 
         if (isPlayerNear)
         {
-            interactText.enabled = true;
+            interactText.enabled = !canCountdown;
             UpdateInteractText();
             if (hasInteracted)
             {

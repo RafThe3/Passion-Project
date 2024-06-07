@@ -27,7 +27,7 @@ public class Checkpoint : MonoBehaviour
         {
             bool hasInteracted = Input.GetButtonDown("Interact");
 
-            interactText.enabled = !checkpointMenu.enabled;
+            interactText.enabled = Time.timeScale == 1;
             UpdateInteractText();
 
             if (hasInteracted)
