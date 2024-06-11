@@ -18,6 +18,8 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Image crosshair;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private GameObject impactEffect;
+    [SerializeField] private GameObject bloodEffect;
 
     [Header("Projectile Shooting"), Space]
     [SerializeField] private bool hasInfiniteAmmo = false;
@@ -37,6 +39,7 @@ public class Shooting : MonoBehaviour
     private float shootTimer = 0;
     private int currentAmmo = 0, reserveAmmo = 0;
     private bool isReloading, isShooting;
+    private Ray shootDirection;
 
     private void Start()
     {
@@ -169,11 +172,26 @@ public class Shooting : MonoBehaviour
 
         if (currentAmmo > 0)
         {
-            Ray shootDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
+            GameObject impact;
+            shootDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
 
-            if (Physics.Raycast(shootDirection, out RaycastHit hit, maxDistance) && hit.collider.CompareTag("Enemy"))
+            if (Physics.Raycast(shootDirection, out RaycastHit hit, maxDistance))
             {
-                hit.collider.GetComponent<Enemy>().TakeDamage(damageAmount);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    hit.collider.GetComponent<Enemy>().TakeDamage(damageAmount);
+                    impact = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                else
+                {
+                    impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    if (hit.rigidbody)
+                    {
+                        hit.rigidbody.AddForce(-hit.normal * 60);
+                    }
+                }
+
+                Destroy(impact, 1);
             }
 
             Camera.main.GetComponent<AudioSource>().PlayOneShot(shootSFX);

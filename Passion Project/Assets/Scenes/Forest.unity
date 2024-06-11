@@ -2922,12 +2922,12 @@ PrefabInstance:
     - target: {fileID: 3551802072034596929, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3551802072034596929, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -30.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3551802072034596929, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
@@ -2981,13 +2981,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
+      propertyPath: bloodEffect
+      value: 
+      objectReference: {fileID: 1000010675638318, guid: a3768c8a9d1b90d4bb0eb0e4bdbe730c,
+        type: 3}
+    - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
       propertyPath: maxDistance
-      value: 173.7
+      value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 888841074}
+    - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: impactEffect
+      value: 
+      objectReference: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+        type: 3}
     - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
       propertyPath: projectileLife
       value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636283261307292244, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
+        type: 3}
+      propertyPath: projectileSpawnPoint
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3739974484547980984, guid: 40218ef3e2ea1fa44a76d2d6466e9839,
         type: 3}
@@ -3335,7 +3357,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 6e-44, z: 7.6e-44, w: 5.576e-42}
+  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 8.4e-44, w: 1.1348841e-35}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -6005,7 +6027,7 @@ PrefabInstance:
     - target: {fileID: 2617244898030047531, guid: 696e59b6d0b879946a6111454c3205ab,
         type: 3}
       propertyPath: m_Name
-      value: HideOut
+      value: Spawn Point
       objectReference: {fileID: 0}
     - target: {fileID: 2617244898030047531, guid: 696e59b6d0b879946a6111454c3205ab,
         type: 3}
@@ -7992,7 +8014,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: 776677ab3818fb249adaca05f4e04545, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8234,7 +8256,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
+      minColor: {r: 0, g: 0.68195224, b: 1, a: 1}
       maxColor: {r: 0.8584906, g: 0.55442333, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -8677,7 +8699,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 8.75
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -8763,7 +8785,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.1
       mode: 0
       spread: 0
       speed:
@@ -8882,7 +8904,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -8985,8 +9007,66 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 30
+        minScalar: 30
+        maxCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      cycleCount: 1
+      repeatInterval: 0.01
+      probability: 1
   SizeModule:
     enabled: 0
     curve:
@@ -9312,7 +9392,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -14177,6 +14257,9 @@ MonoBehaviour:
   reloadSFX: {fileID: 8300000, guid: cba96ed9ce74d58438d0b0159d7f02bd, type: 3}
   crosshair: {fileID: 871796981}
   ammoText: {fileID: 1128701034}
+  muzzleFlash: {fileID: 0}
+  impactEffect: {fileID: 0}
+  bloodEffect: {fileID: 0}
   hasInfiniteAmmo: 0
   startingAmmo: 5
   maxAmmo: 20
