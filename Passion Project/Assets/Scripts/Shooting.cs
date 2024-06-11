@@ -115,8 +115,6 @@ public class Shooting : MonoBehaviour
 
     private void Shoot()
     {
-        //add three or four round burst
-
         if (currentAmmo > 0)
         {
             GameObject projectileClone = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
