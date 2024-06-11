@@ -6,9 +6,12 @@ using UnityEngine.UI;
 using TMPro;
 using StarterAssets;
 using Unity.XR.Oculus.Input;
+using UnityEngine.Audio;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private bool testControls = false;
+
     [Header("Movement")]
     [SerializeField] private bool infiniteStamina = false;
     [Min(0), SerializeField] private float sprintTime = 1;
@@ -40,6 +43,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Slider staminaBar;
     [SerializeField] private Image staminaBarFillArea;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip healSFX;
+
     //Internal Variables
     private int currentHealth;
     private int healthPacks;
@@ -50,12 +56,14 @@ public class Player : MonoBehaviour
     //private Animator animator;
     private CharacterController character;
     private FirstPersonController controller;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         //animator = GetComponent<Animator>();
         character = GetComponent<CharacterController>();
         controller = GetComponent<FirstPersonController>();
+        audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -87,21 +95,24 @@ public class Player : MonoBehaviour
         //animator.SetBool("isMoving", isMoving);
 
         //test
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (testControls)
         {
-            TakeDamage(10);
-        }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                TakeDamage(10);
+            }
 
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            AddXP();
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                AddXP();
+            }
         }
+        //
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             GetComponent<SaveSystem>().Load();
         }
-        //
 
         if (Input.GetButtonDown("Heal"))
         {
@@ -196,6 +207,7 @@ public class Player : MonoBehaviour
             currentHealth += health;
             healthPacks--;
             healTimer = 0;
+            audioSource.PlayOneShot(healSFX);
         }
 
         if (currentHealth > maxHealth)

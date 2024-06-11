@@ -11,19 +11,26 @@ public class ItemSwitch : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gunNameText;
 
     private bool hasSwitched = false;
+    private float cameraDefaultFOV;
 
     private void Start()
     {
         item2.SetActive(false);
         item1.SetActive(true);
         gunNameText.text = item1.name;
+        cameraDefaultFOV = Camera.main.fieldOfView;
     }
 
     private void Update()
     {
         bool switchedItem = Mathf.Abs(Input.mouseScrollDelta.y) > Mathf.Epsilon;
 
-        if (switchedItem && !hasSwitched && Camera.main.fieldOfView == 60 && item2 && Time.timeScale > 0)
+        if (switchedItem
+            && !hasSwitched
+            && Camera.main.fieldOfView == cameraDefaultFOV
+            && item2
+            && Time.timeScale > 0
+            && !FindObjectOfType<Shooting>().IsReloading)
         {
             StartCoroutine(SwitchItem(switchCooldown));
         }

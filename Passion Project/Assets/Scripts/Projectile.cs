@@ -14,12 +14,11 @@ public class Projectile : MonoBehaviour
     /*
     private void Update()
     {
-        Ray hitDirection = new(transform.position, transform.forward);
+        Ray hitDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
 
-        if (Physics.Raycast(hitDirection, out RaycastHit hit, 10) && hit.collider.CompareTag("Enemy"))
+        if (Physics.Raycast(hitDirection, out RaycastHit hit) && hit.collider.CompareTag("Enemy"))
         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
+            hit.collider.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject);
         }
     }
@@ -29,7 +28,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            DamageEnemy(other);
+            //DamageEnemy(other);
         }
     }
 

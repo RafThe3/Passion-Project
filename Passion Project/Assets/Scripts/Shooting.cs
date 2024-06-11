@@ -17,6 +17,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private AudioClip reloadSFX;
     [SerializeField] private Image crosshair;
     [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private ParticleSystem muzzleFlash;
 
     [Header("Projectile Shooting"), Space]
     [SerializeField] private bool hasInfiniteAmmo = false;
@@ -100,7 +101,11 @@ public class Shooting : MonoBehaviour
         }
 
         bool isAiming = Input.GetButton("Aim Down Sights");
-        GetComponent<Animator>().SetBool("isAiming", isAiming);
+        if (GetComponent<Animator>())
+        {
+            GetComponent<Animator>().SetBool("isAiming", isAiming);
+        }
+
         Camera.main.GetComponent<Animator>().SetBool("isAiming", isAiming);
         crosshair.enabled = !isAiming;
     }
@@ -112,7 +117,7 @@ public class Shooting : MonoBehaviour
         if (currentAmmo > 0)
         {
             GameObject projectileClone = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-            projectileClone.GetComponent<Rigidbody>().velocity = 10 * projectileSpeed * Camera.main.transform.forward;
+            projectileClone.GetComponent<Rigidbody>().velocity = 100 * projectileSpeed * Time.deltaTime * Camera.main.transform.forward;
             currentAmmo--;
             shootTimer = 0;
             Camera.main.GetComponent<AudioSource>().PlayOneShot(shootSFX);
@@ -160,12 +165,20 @@ public class Shooting : MonoBehaviour
 
     private void ShootLine()
     {
-        Ray shootDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
+        //add bloom, three - four round burst
 
-        if (Physics.Raycast(shootDirection, out RaycastHit hit, maxDistance) && hit.collider.CompareTag("Enemy"))
+        if (currentAmmo > 0)
         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
-            enemy.TakeDamage(damageAmount);
+            Ray shootDirection = new(Camera.main.transform.position, Camera.main.transform.forward);
+
+            if (Physics.Raycast(shootDirection, out RaycastHit hit, maxDistance) && hit.collider.CompareTag("Enemy"))
+            {
+                hit.collider.GetComponent<Enemy>().TakeDamage(damageAmount);
+            }
+
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootSFX);
+            muzzleFlash.Play();
+            currentAmmo--;
             shootTimer = 0;
         }
     }
@@ -187,6 +200,8 @@ public class Shooting : MonoBehaviour
             reserveAmmo = maxAmmo;
         }
     }
+
+    public bool IsReloading => isReloading;
 
     private enum ShootType { Projectile, Line }
 }
